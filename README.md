@@ -1,4 +1,5 @@
-# minilibrary
+# Mini library
+A small Vue.js project.
 
 ## Project setup
 ```
