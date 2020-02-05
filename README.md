@@ -1,5 +1,5 @@
 # Mini library
-A small Vue.js project.
+A small Vue.js project, build without router.
 
 ## Project setup
 ```
