@@ -1,16 +1,36 @@
 <template>
   <div id="app">
-    <router-view :books="books" />
+    <transition name="fade">
+      <overlay v-if="showOverlay" :selectedBook="activeBook" />
+    </transition>
+    <library :books="books"/>
   </div>
 </template>
 <script>
 import books from '@/assets/childrensbooks.json';
+import library from '@/views/Books';
+import overlay from '@/views/BookInfo';
 
 export default {
-  name: 'Book',
+  name: 'App',
+  components: {
+    library,
+    overlay
+  },
+  data(){
+    return {
+      showOverlay: false,
+      activeBook: Object
+    }
+  },
   computed: {
     books() {
       return books.books; 
+    }
+  },
+  watch: {
+    activeBook(){
+      this.showOverlay = !this.showOverlay;
     }
   }
 }
@@ -32,6 +52,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 
 </style>

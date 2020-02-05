@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     moreInfo(){
-      this.$router.push(`/books/${this.book.id}`);
+      this.$parent.$parent.activeBook = this.book;
     }
   }
 }

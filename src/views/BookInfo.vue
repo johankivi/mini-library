@@ -1,8 +1,8 @@
 <template>
-  <main class="dark">
+  <section class="dark">
     <div class="bookinfo">
       <header>
-        <a href="#" class="back" @click="$router.push('/books')">&leftarrow;</a>
+        <a href="#" class="back" @click="close">&leftarrow;</a>
       </header>
       <section class="display">
         <article class="book" :style="{ backgroundColor: book.color }">
@@ -28,16 +28,24 @@
         </footer>
       </section>
     </div>
-  </main>
+  </section>
 </template>
 
 <script>
 
 export default {
   name: 'bookInfo',
+  props: {
+    selectedBook: Object
+  },
   computed: {
     book(){
-      return this.$parent.books.filter( book => book.id == this.$route.params.id)[0];
+      return this.$parent.books.filter( b => b.id == this.selectedBook.id)[0];
+    }
+  },
+  methods: {
+    close(){
+      this.$parent.showOverlay = false;
     }
   }
 }
@@ -45,12 +53,14 @@ export default {
 <style scoped>
 
 .dark {
+  z-index: 999;
   height: 100vh;
   width: 100vw;
-  background: #222;
+  background: rgba(0,0,0,.95);
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
 }
 
 .bookinfo {
@@ -73,7 +83,7 @@ export default {
   align-items: center;
   width: 3rem;
   height: 3rem;
-  background: rgba(255,255,255,.2);
+  background: rgba(255,255,255,.4);
   color: rgba(0,0,0,0.8);
   text-decoration: none;
   border-radius: 999rem;
